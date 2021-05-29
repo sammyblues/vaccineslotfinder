@@ -9,10 +9,10 @@ duration = 5000  # Set Duration To 1000 ms == 1 second
 conn = http.client.HTTPSConnection("cdn-api.co-vin.in")
 payload = ''
 headers = {}
-print("Welcome to simple Vaccine Slot finder for Hyderabad and Rangareddy. The app checks Cowin Public API and makes a long beep sound when slots are found for 18+ beneficiaries")
-print("Developed by Samrat Majumder. Source code at ")
+print("Welcome to Simple Vaccine Slot finder for Hyderabad and Rangareddy. The app checks Cowin Public API and makes a long beep sound when slots are found for 18+ beneficiaries")
+print("Developed by Samrat Majumder. Source code at https://github.com/sammyblues/vaccineslotfinder")
 loop = True
-checkdate = input("Please enter date in DD-MM-YYYY format. Eg: 28-05-2021")
+checkdate = input("Please enter search date in DD-MM-YYYY format. Eg: 28-05-2021:: ")
 if checkdate == "":
     loop = False
 while loop:
