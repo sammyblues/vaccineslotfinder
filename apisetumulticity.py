@@ -9,26 +9,26 @@ duration = 5000  # Set Duration To 1000 ms == 1 second
 conn = http.client.HTTPSConnection("cdn-api.co-vin.in")
 payload = ''
 headers = {}
-print("Welcome to Simple Vaccine Slot finder for Hyderabad and Rangareddy. The app checks Cowin Public API and makes a long beep sound when slots are found for 18+ beneficiaries")
+print("Welcome to Simple Vaccine Slot finder for multiple cities. The app checks Cowin Public API and makes a long beep sound when slots are found for 18+ beneficiaries")
 print("Developed by Samrat Majumder. Source code at https://github.com/sammyblues/vaccineslotfinder")
 loop = True
 checkdate = input("Please enter search date in DD-MM-YYYY format. Eg: 28-05-2021:: ")
 if checkdate == "":
     loop = False
-print("DistrictIDs\nHyderabad:581\nRangareddy:603\nAhmedabad:154\nAhmedabad Corp:770\nBangalore:265\nBBMP:294\nChennai:571\nHowrah:721\nKolkata:725\nS24Parganas:718")
+print("DistrictIDs\nHyderabad:581\nRangareddy:603\nAhmedabad:154\nAhmedabad Corp:770\nBangalore:265\nBBMP:294\nChennai:571\nHowrah:721\nKolkata:725\nS24Parganas:718\nCuttack:457")
 districtid = input("Please enter District ID to search:::")
 if districtid == "":
     loop = False
 while loop:
-    print("Checking API Setu......")
+    print("Checking API Setu for Dose2 Availability......")
     conn.request("GET", "/api/v2/appointment/sessions/public/findByDistrict?district_id="+districtid+"&date="+checkdate, payload, headers)
     res = conn.getresponse()
     data = res.read()
     jsondata = json.loads(data.decode("utf-8"))
     for session in jsondata["sessions"]:
-        if session["available_capacity_dose1"] > 0 and session["min_age_limit"] == 18:
+        if session["available_capacity_dose2"] > 0 and session["min_age_limit"] == 18:
             print("PIN:" + str(session["pincode"]) + " Name: " + str(session["name"]) + " SlotsAVLBL: " + str(
-                session["available_capacity_dose1"]) + " MinAge: " + str(session["min_age_limit"]))
+                session["available_capacity_dose2"]) + " MinAge: " + str(session["min_age_limit"]) + " Vaccine: "+str(session["vaccine"]))
             winsound.Beep(frequency, duration)
 
     # conn.request("GET", "/api/v2/appointment/sessions/public/findByDistrict?district_id=581&date="+checkdate, payload, headers)
